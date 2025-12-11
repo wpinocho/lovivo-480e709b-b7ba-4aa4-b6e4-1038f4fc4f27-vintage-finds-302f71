@@ -9,46 +9,46 @@ interface CollectionCardProps {
 
 export const CollectionCard = ({ collection, onViewProducts }: CollectionCardProps) => {
   return (
-    <Card className="bg-white border border-gray-200 overflow-hidden">
-      <CardContent className="p-0">
-        <div className="aspect-[4/3] bg-gray-100 overflow-hidden">
+    <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 border-2 hover:border-primary cursor-pointer">
+      <CardContent className="p-0" onClick={() => onViewProducts(collection.id)}>
+        <div className="aspect-[4/3] bg-muted overflow-hidden relative">
           {collection.image ? (
-            <img 
-              src={collection.image} 
-              alt={collection.name}
-              className="w-full h-full object-cover"
-            />
+            <>
+              <img 
+                src={collection.image} 
+                alt={collection.name}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
+            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
               No image
             </div>
           )}
+          {collection.featured && (
+            <span className="absolute top-3 right-3 bg-accent text-accent-foreground text-xs px-3 py-1 rounded-full font-semibold shadow-lg">
+              Featured
+            </span>
+          )}
         </div>
         
-        <div className="p-4">
-          <div className="flex items-start justify-between mb-2">
-            <h3 className="text-black font-semibold text-lg line-clamp-1">
-              {collection.name}
-            </h3>
-            {collection.featured && (
-              <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded font-medium">
-                Featured
-              </span>
-            )}
-          </div>
+        <div className="p-6 space-y-3">
+          <h3 className="text-foreground font-bold text-xl group-hover:text-primary transition-colors">
+            {collection.name}
+          </h3>
           
           {collection.description && (
-            <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+            <p className="text-muted-foreground text-sm line-clamp-2">
               {collection.description}
             </p>
           )}
           
           <Button 
             variant="outline" 
-            className="w-full text-black border-gray-300 hover:bg-gray-50"
-            onClick={() => onViewProducts(collection.id)}
+            className="w-full group-hover:bg-primary group-hover:text-primary-foreground group-hover:border-primary transition-all"
           >
-            View Products
+            Explore Collection
           </Button>
         </div>
       </CardContent>
